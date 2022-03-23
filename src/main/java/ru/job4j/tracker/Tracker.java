@@ -79,7 +79,6 @@ public class Tracker {
             return false;
         } else {
             item.setId(id);
-            int currId = items[index].getId();
             items[index] = item;
             return true;
         }
