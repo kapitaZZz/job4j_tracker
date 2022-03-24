@@ -27,7 +27,6 @@ public class StartUI {
                     for (Item item : items) {
                         System.out.println(item);
                     }
-
                 } else {
                     System.out.println("Хранилище еще не содержит заявок");
                 }
@@ -42,6 +41,15 @@ public class StartUI {
                     System.out.println("Заявка изменена успешно.");
                 } else {
                     System.out.println("Ошибка замены заявки.");
+                }
+            } else if (choice == 3) {
+                System.out.println("=== Delete item ===");
+                System.out.print("Enter id: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                if (tracker.delete(id)) {
+                    System.out.println("Заявка удалена успешно.");
+                } else {
+                    System.out.println("Ошибка удаления заявки.");
                 }
             } else if (choice == 6) {
                 run = false;
