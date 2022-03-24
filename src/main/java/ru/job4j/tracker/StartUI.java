@@ -9,11 +9,17 @@ public class StartUI {
         boolean run = true;
         while (run) {
             showMenu();
-            int choice = Integer.parseInt(scanner.nextLine());
             System.out.println("Select: ");
-            if (choice != 6) {
-                System.out.println("Пользователь выбрал: " + choice);
-            } else {
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            if (choice == 0) {
+                System.out.println("=== Create a new Item ===");
+                System.out.print("Enter name: ");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                tracker.add(item);
+                System.out.println("Добавленная заявка: " + item);
+            } else if (choice == 6) {
                 run = false;
             }
         }
