@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class StartUI {
@@ -10,7 +9,7 @@ public class StartUI {
         boolean run = true;
         while (run) {
             showMenu();
-            System.out.println("Select: ");
+            System.out.print("Select: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
             if (choice == 0) {
