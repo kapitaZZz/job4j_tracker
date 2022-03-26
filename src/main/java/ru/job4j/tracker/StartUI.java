@@ -12,7 +12,7 @@ public class StartUI {
 
     public static void editItem(Input input, Tracker tracker) {
         System.out.println("=== Edit item ===");
-        int id = Integer.parseInt(input.askStr("Enter id: "));
+        int id = input.askInt("Enter id: ");
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
         if (tracker.replace(id, item)) {
@@ -24,7 +24,7 @@ public class StartUI {
 
     public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Delete item ===");
-        int id = Integer.parseInt(input.askStr("Enter id: "));
+        int id = input.askInt("Enter id: ");
         if (tracker.delete(id)) {
             System.out.println("Заявка удалена успешно.");
         } else {
@@ -32,49 +32,60 @@ public class StartUI {
         }
     }
 
-    @SuppressWarnings("checkstyle:MethodLength")
+    public static void showItems(Tracker tracker) {
+        System.out.println("=== Show all items ===");
+        Item[] items = tracker.findAll();
+        if (items.length > 0) {
+            for (Item item : items) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Хранилище еще не содержит заявок");
+        }
+    }
+
+    public static void findById(Input input, Tracker tracker) {
+        System.out.println("=== Find item by id ===");
+        int id = input.askInt("Enter id: ");
+        Item item = tracker.findById(id);
+        if (item != null) {
+            System.out.println(item);
+        } else {
+            System.out.println("Заявка с введенным id: " + id + " не найдена.");
+        }
+    }
+
+    public static void findByName(Input input, Tracker tracker) {
+        System.out.println("=== Find items by name ===");
+        String name = input.askStr("Enter new name: ");
+        Item[] items = tracker.findByName(name);
+        if (items.length > 0) {
+            for (Item item : items) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Заявки с именем: " + name + " не найдены.");
+        }
+    }
+
     public void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             showMenu();
             System.out.print("Select: ");
-            int choice = Integer.parseInt(input.askStr("Enter number : "));
+            int choice = input.askInt("Enter number : ");
             if (choice == 0) {
                 createItem(input, tracker);
             } else if (choice == 1) {
-                System.out.println("=== Show all items ===");
-                Item[] items = tracker.findAll();
-                if (items.length > 0) {
-                    for (Item item : items) {
-                        System.out.println(item);
-                    }
-                } else {
-                    System.out.println("Хранилище еще не содержит заявок");
-                }
+                showItems(tracker);
             } else if (choice == 2) {
                 editItem(input, tracker);
             } else if (choice == 3) {
                 deleteItem(input, tracker);
             } else if (choice == 4) {
-                System.out.println("=== Find item by id ===");
-                int id = Integer.parseInt(input.askStr("Enter id: "));
-                Item item = tracker.findById(id);
-                if (item != null) {
-                    System.out.println(item);
-                } else {
-                    System.out.println("Заявка с введенным id: " + id + " не найдена.");
-                }
+                findById(input, tracker);
             } else if (choice == 5) {
-                System.out.println("=== Find items by name ===");
-                String name = input.askStr("Enter new name: ");
-                Item[] items = tracker.findByName(name);
-                if (items.length > 0) {
-                    for (Item item : items) {
-                        System.out.println(item);
-                    }
-                } else {
-                    System.out.println("Заявки с именем: " + name + " не найдены.");
-                }
+                findByName(input, tracker);
             } else if (choice == 6) {
                 run = false;
             }
