@@ -9,7 +9,14 @@ public class ShowAction implements UserAction {
     @Override
     public boolean execute(Tracker tracker, Input input) {
         System.out.println("=== Show all items ===");
-        tracker.findAll();
+        Item[] items = tracker.findAll();
+        if (items.length > 0) {
+            for (Item item : items) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Хранилище еще не содержит заявок");
+        }
         return true;
     }
 }
