@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertNull;
 
 public class StartUITest {
     @Test
@@ -21,37 +21,33 @@ public class StartUITest {
         assertThat(tracker.findAll()[0].getName(), is("Item name"));
     }
 
-//    @Test
-//    public void whenReplaceItem() {
-//        Tracker tracker = new Tracker();
-//        Item item = tracker.add(new Item("Replaced item"));
-//        /* Входные данные должны содержать ID добавленной заявки item.getId() */
-//        int id = item.getId();
-//        String replacedName = "New item name";
-//        Input in = new StubInput(
-//                new String[] {"0", Integer.toString(item.getId()), replacedName, "1"}
-//        );
-//        UserAction[] actions = {
-//                new EditAction(),
-//                new ExitAction()
-//        };
-//        new StartUI().init(in, tracker, actions);
-//        assertThat(tracker.findById(item.getId()).getName(), is(replacedName));
-//    }
-//
-//    @Test
-//    public void whenDeleteItem() {
-//        Tracker tracker = new Tracker();
-//        Item item = tracker.add(new Item("Deleted item"));
-//        /* Входные данные должны содержать ID добавленной заявки item.getId() */
-//        Input in = new StubInput(
-//                new String[] {"0" /* входные параметры для DeleteAction */, "1"}
-//        );
-//        UserAction[] actions = {
-//                new DeleteAction(),
-//                new ExitAction()
-//        };
-//        new StartUI().init(in, tracker, actions);
-//        assertThat(tracker.findById(item.getId()), is(nullValue()));
-//    }
+    @Test
+    public void whenReplaceItem() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Replaced item"));
+        String replacedName = "New item name";
+        Input input = new StubInput(
+                new String[] {"0", Integer.toString(item.getId()), replacedName, "1"}
+        );
+        UserAction[] actions = {
+                new EditAction(),
+                new ExitAction()};
+        new StartUI().init(input, tracker, actions);
+        assertThat(tracker.findAll()[0].getName(), is(replacedName));
+    }
+
+    @Test
+    public void whenDeleteItem() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item());
+        UserAction[] actions = {
+                new DeleteAction(),
+                new ExitAction()
+        };
+        Input input = new StubInput(
+                new String[] {"0", Integer.toString(item.getId()), "1"}
+        );
+        new StartUI().init(input, tracker, actions);
+        assertNull(tracker.findById(item.getId()));
+    }
 }
