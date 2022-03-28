@@ -13,7 +13,7 @@ public class StartUI {
         while (run) {
             this.showMenu(userAction);
             int select = input.askInt("Select: ");
-            if (select < 0 || select > 6) {
+            if (select < 0 || select > userAction.length - 1) {
                 out.println("Wrong input, you can select: 0 .. " + (userAction.length - 1));
                 continue;
             }
