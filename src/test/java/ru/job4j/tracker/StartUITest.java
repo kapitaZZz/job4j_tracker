@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNull;
 
 public class StartUITest {
+
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
@@ -103,8 +104,7 @@ public class StartUITest {
                         + "Item{"
                         + "id=" + item.getId()
                         + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated().toString()
-                        + "}" + System.lineSeparator()
+                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
                         + "Menu:" + System.lineSeparator()
                         + "0. Find item by Id" + System.lineSeparator()
                         + "1. EXIT" + System.lineSeparator()
