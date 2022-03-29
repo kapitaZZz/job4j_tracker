@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNull;
 
 public class StartUITest {
-
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
@@ -107,6 +106,66 @@ public class StartUITest {
                         + ", created=" + item.getCreated() + "}" + System.lineSeparator()
                         + "Menu:" + System.lineSeparator()
                         + "0. Find item by Id" + System.lineSeparator()
+                        + "1. EXIT" + System.lineSeparator()
+                        + "EXIT" + System.lineSeparator()
+        ));
+    }
+
+    @Test
+    public void testFindAllAction() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Test"));
+        Item item1 = tracker.add(new Item("Test1"));
+        Input input = new StubInput(new String[]{"0", "1"});
+        UserAction[] userAction = {
+                new ShowAction(out),
+                new ExitAction(out)
+        };
+        new StartUI(out).init(input, tracker, userAction);
+        assertThat(out.toString(), is(
+                "Menu:" + System.lineSeparator()
+                        + "0. Show all items" + System.lineSeparator()
+                        + "1. EXIT" + System.lineSeparator()
+                        + "=== Show all items ===" + System.lineSeparator()
+                        + "Item{"
+                        + "id=" + item.getId()
+                        + ", name='" + item.getName() + '\''
+                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "Item{"
+                        + "id=" + (item.getId() + 1)
+                        + ", name='" + item.getName() + "1" + '\''
+                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "Menu:" + System.lineSeparator()
+                        + "0. Show all items" + System.lineSeparator()
+                        + "1. EXIT" + System.lineSeparator()
+                        + "EXIT" + System.lineSeparator()
+        ));
+    }
+
+    @Test
+    public void testFindByNameAction() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("Test"));
+
+        Input input = new StubInput(new String[]{"0", item.getName(), "1"});
+        UserAction[] userActions = {
+                new FindByNameAction(out),
+                new ExitAction(out)
+        };
+        new StartUI(out).init(input, tracker, userActions);
+        assertThat(out.toString(), is(
+                "Menu:" + System.lineSeparator()
+                        + "0. Find item by name" + System.lineSeparator()
+                        + "1. EXIT" + System.lineSeparator()
+                        + "Find item by name" + System.lineSeparator()
+                        + "Item{"
+                        + "id=" + item.getId()
+                        + ", name='" + item.getName() + '\''
+                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "Menu:" + System.lineSeparator()
+                        + "0. Find item by name" + System.lineSeparator()
                         + "1. EXIT" + System.lineSeparator()
                         + "EXIT" + System.lineSeparator()
         ));
