@@ -115,8 +115,8 @@ public class StartUITest {
     public void testFindAllAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Test"));
-        Item item1 = tracker.add(new Item("Test1"));
+        Item item = tracker.add(new Item(1, "Test"));
+        Item item1 = tracker.add(new Item(2, "Test1"));
         Input input = new StubInput(new String[]{"0", "1"});
         UserAction[] userAction = {
                 new ShowAction(out),
@@ -129,13 +129,13 @@ public class StartUITest {
                         + "1. EXIT" + System.lineSeparator()
                         + "=== Show all items ===" + System.lineSeparator()
                         + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "id=" + item
+                        + ", name='" + item + '\''
+                        + ", created=" + item + "}" + System.lineSeparator()
                         + "Item{"
-                        + "id=" + (item.getId() + 1)
-                        + ", name='" + item.getName() + "1" + '\''
-                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "id=" + item
+                        + ", name='" + item + '\''
+                        + ", created=" + item + "}" + System.lineSeparator()
                         + "Menu:" + System.lineSeparator()
                         + "0. Show all items" + System.lineSeparator()
                         + "1. EXIT" + System.lineSeparator()
@@ -161,9 +161,9 @@ public class StartUITest {
                         + "1. EXIT" + System.lineSeparator()
                         + "Find item by name" + System.lineSeparator()
                         + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated() + "}" + System.lineSeparator()
+                        + "id=" + item
+                        + ", name='" + item + '\''
+                        + ", created=" + item + "}" + System.lineSeparator()
                         + "Menu:" + System.lineSeparator()
                         + "0. Find item by name" + System.lineSeparator()
                         + "1. EXIT" + System.lineSeparator()
