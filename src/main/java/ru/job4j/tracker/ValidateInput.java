@@ -21,7 +21,6 @@ public class ValidateInput implements Input {
         boolean invalid = true;
         int value = -1;
         do {
-
             try {
                 value = input.askInt(question);
                 invalid = false;
@@ -31,5 +30,4 @@ public class ValidateInput implements Input {
         } while (invalid);
         return value;
     }
-
 }
