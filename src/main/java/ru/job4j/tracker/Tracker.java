@@ -1,13 +1,15 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Tracker {
-    private final Item[] items = new Item[100];
-    private int ids = 1;
+    private final List<Item> items = new ArrayList<>();
+    private int ids = 0;
     private int size = 0;
 
-    public Item[] getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
@@ -29,40 +31,37 @@ public class Tracker {
 
     public Item add(Item item) {
         item.setId(ids++);
-        items[size++] = item;
+        items.add(item);
         return item;
     }
 
     public Item findById(int id) {
-        int index = indexOf(id);
-        return index != -1 ? items[index] : null;
+        return indexOf(id) != -1 ? items.get(id) : null;
     }
 
     private int indexOf(int id) {
-        int rsl = -1;
-        for (int index = 0; index < size; index++) {
-            if (items[index].getId() == id) {
-                rsl = index;
+        int result = -1;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == id) {
+                result = i;
                 break;
             }
         }
-        return rsl;
+        return result;
     }
 
-    public Item[] findAll() {
-        return Arrays.copyOf(items, size);
+    public List<Item> findAll() {
+        return items;
     }
 
-    public Item[] findByName(String key) {
-        Item[] rsl = new Item[size];
-        int count = 0;
-        for (int i = 0; i < size; i++) {
-            Item item = items[i];
-            if (key.equals(item.getName())) {
-                rsl[count++] = item;
+    public List<Item> findByName(String key) {
+        List<Item> res = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().equals(key)) {
+                res.add(item);
             }
         }
-        return Arrays.copyOf(rsl, count);
+        return res;
     }
 
     public boolean replace(int id, Item item) {
@@ -70,7 +69,7 @@ public class Tracker {
         boolean flag = index != -1;
         if (flag) {
             item.setId(id);
-            items[index] = item;
+            items.set(index, item);
         }
         return flag;
     }
@@ -79,9 +78,7 @@ public class Tracker {
         int index = indexOf(id);
         boolean flag = index != -1;
         if (flag) {
-            System.arraycopy(items, index + 1, items, index, size - index - 1);
-            items[size - 1] = null;
-            size--;
+            items.remove(index);
         }
         return flag;
     }
