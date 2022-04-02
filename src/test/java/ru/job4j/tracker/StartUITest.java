@@ -80,6 +80,7 @@ public class StartUITest {
                         + "1. EXIT" + ln
                         + "EXIT" + ln
         ));
+
     }
 
     @Test
@@ -109,6 +110,7 @@ public class StartUITest {
                         + "1. EXIT" + ln
                         + "EXIT" + ln
         ));
+
     }
 
     @Test
@@ -141,6 +143,7 @@ public class StartUITest {
                         + "1. EXIT" + ln
                         + "EXIT" + ln
         ));
+
     }
 
     @Test
@@ -168,6 +171,7 @@ public class StartUITest {
                         + "1. EXIT" + ln
                         + "EXIT" + ln
         ));
+
     }
 
     @Test
@@ -190,5 +194,6 @@ public class StartUITest {
                                 + "EXIT" + ln
                 )
         );
+
     }
 }
