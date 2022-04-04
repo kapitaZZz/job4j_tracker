@@ -101,10 +101,7 @@ public class StartUITest {
                         + "0. Find item by Id" + ln
                         + "1. EXIT" + ln
                         + "Find item by Id" + ln
-                        + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated() + "}" + ln
+                        + item + ln
                         + "Menu:" + ln
                         + "0. Find item by Id" + ln
                         + "1. EXIT" + ln
@@ -130,14 +127,8 @@ public class StartUITest {
                         + "0. Show all items" + ln
                         + "1. EXIT" + ln
                         + "=== Show all items ===" + ln
-                        + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated() + "}" + ln
-                        + "Item{"
-                        + "id=" + item1.getId()
-                        + ", name='" + item1.getName() + '\''
-                        + ", created=" + item1.getCreated() + "}" + ln
+                        + item + ln
+                        + item1 + ln
                         + "Menu:" + ln
                         + "0. Show all items" + ln
                         + "1. EXIT" + ln
@@ -162,10 +153,7 @@ public class StartUITest {
                         + "0. Find item by name" + ln
                         + "1. EXIT" + ln
                         + "Find item by name" + ln
-                        + "Item{"
-                        + "id=" + item.getId()
-                        + ", name='" + item.getName() + '\''
-                        + ", created=" + item.getCreated() + "}" + ln
+                        + item + ln
                         + "Menu:" + ln
                         + "0. Find item by name" + ln
                         + "1. EXIT" + ln
