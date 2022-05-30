@@ -101,18 +101,18 @@ public class SqlTracker implements Store, AutoCloseable {
 
     @Override
     public List<Item> findByName(String key) {
-        List<Item> item = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
         String sql = "select * from items where name = ?";
         try (PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
             preparedStatement.setString(1, key);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                item.add(parseResultSet(resultSet));
+                items.add(parseResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return item;
+        return items;
     }
 
     @Override
