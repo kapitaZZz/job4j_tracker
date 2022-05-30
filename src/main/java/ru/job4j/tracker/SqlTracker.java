@@ -90,7 +90,9 @@ public class SqlTracker implements Store, AutoCloseable {
         String sql = "select * from items";
         try (PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            items.add(parseResultSet(resultSet));
+            while (resultSet.next()) {
+                items.add(parseResultSet(resultSet));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -104,7 +106,9 @@ public class SqlTracker implements Store, AutoCloseable {
         try (PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
             preparedStatement.setString(1, key);
             ResultSet resultSet = preparedStatement.executeQuery();
-            item.add(parseResultSet(resultSet));
+            while (resultSet.next()) {
+                item.add(parseResultSet(resultSet));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,7 +122,9 @@ public class SqlTracker implements Store, AutoCloseable {
         try (PreparedStatement preparedStatement = cn.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            item = parseResultSet(resultSet);
+            if (resultSet.next()) {
+                item = parseResultSet(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,11 +133,9 @@ public class SqlTracker implements Store, AutoCloseable {
 
     private Item parseResultSet(ResultSet resultSet) throws SQLException {
         Item item = new Item();
-        while (resultSet.next()) {
-            item.setId(resultSet.getInt("id"));
-            item.setName(resultSet.getString("name"));
-            item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
-        }
+        item.setId(resultSet.getInt("id"));
+        item.setName(resultSet.getString("name"));
+        item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
         return item;
     }
 }
