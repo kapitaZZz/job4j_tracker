@@ -53,41 +53,40 @@ public class SqlTrackerTest {
 
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
-        SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
-        assertThat(tracker.findById(item.getId()), is(item));
+        SqlTracker sqlTracker = new SqlTracker(connection);
+        Item item = sqlTracker.add(new Item("item"));
+        assertThat(sqlTracker.findById(item.getId()), is(item));
     }
 
     @Test
     public void testReplace() {
         SqlTracker sqlTracker = new SqlTracker(connection);
-        Item item = new Item("Item");
+        Item item = sqlTracker.add(new Item("Item"));
         Item newItem = new Item("newItem");
-        sqlTracker.add(item);
         int id = item.getId();
         sqlTracker.replace(id, newItem);
-        assertThat(sqlTracker.findById(newItem.getId()), is((newItem)));
+        assertThat(sqlTracker.findByName(newItem.getName()).get(0).getName(), is((newItem.getName())));
     }
 
     @Test
     public void testDelete() {
         SqlTracker sqlTracker = new SqlTracker(connection);
-        Item item = new Item("item");
+        Item item = sqlTracker.add(new Item("item"));
         sqlTracker.add(item);
         int id = item.getId();
         assertTrue(sqlTracker.delete(id));
         assertFalse(sqlTracker.delete(id));
+
     }
 
     @Test
-    public void testFindAll() {
+    public void whenFindAllThenTrue() {
         List<Item> items = new ArrayList<>();
         SqlTracker sqlTracker = new SqlTracker(connection);
-        Item item1 = new Item("item_1");
-        Item item2 = new Item("item_2");
-        Item item3 = new Item("item_3");
-        Item item4 = new Item("item_4");
+        Item item1 = sqlTracker.add(new Item("item_1"));
+        Item item2 = sqlTracker.add(new Item("item_2"));
+        Item item3 = sqlTracker.add(new Item("item_3"));
+        Item item4 = sqlTracker.add(new Item("item_4"));
         items.add(item1);
         items.add(item2);
         items.add(item3);
@@ -97,13 +96,15 @@ public class SqlTrackerTest {
     }
 
     @Test
-    public void testFindByName() {
+    public void whenFindByNameThenTrue() {
         SqlTracker sqlTracker = new SqlTracker(connection);
-        Item item = new Item("item_1");
-        Item item2 = new Item("item_2");
-        sqlTracker.add(item);
-        sqlTracker.add(item2);
+        Item item = sqlTracker.add(new Item("item_1"));
+        Item item2 = sqlTracker.add(new Item("item_2"));
+        Item item3 = sqlTracker.add(new Item("item_2"));
+        Item item4 = sqlTracker.add(new Item("item_2"));
+        Item item5 = sqlTracker.add(new Item("item_2"));
+        Item item6 = sqlTracker.add(new Item("item_2"));
         List<Item> list = sqlTracker.findByName(item2.getName());
-        assertEquals(list.get(0), item2);
+        assertEquals(list, List.of(item2, item3, item4, item5, item6));
     }
 }
