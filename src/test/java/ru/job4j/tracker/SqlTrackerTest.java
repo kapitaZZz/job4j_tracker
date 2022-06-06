@@ -76,7 +76,7 @@ public class SqlTrackerTest {
         int id = item.getId();
         assertTrue(sqlTracker.delete(id));
         assertFalse(sqlTracker.delete(id));
-
+        assertNull(sqlTracker.findById(id));
     }
 
     @Test
